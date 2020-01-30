@@ -1,6 +1,11 @@
-# agendacontatos
+# agenda contatos
 
-A new Flutter application.
+This application is under development, as the technology is being used in the Flutter.
+
+this project is open to the community, help me to add new features in the project i will be very grateful.
+I hope you like the idea.
+
+if you have any ideas and want to put them into practice contact us.
 
 ## Getting Started
 
