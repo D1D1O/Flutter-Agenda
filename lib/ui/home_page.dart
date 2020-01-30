@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:agendacontatos/helpers/contact_helper.dart';
+import 'dart:io';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,14 +9,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ContactHelper helper = ContactHelper();
-  List<Contact> contacts  = List();
+  List<Contact> contacts = List();
+
+
 
 
   @override
   void initState() {
     super.initState();
 
-    helper.getAllContacts().then((list){
+    /*Contact c = Contact();
+    c.name = "Tatiana";
+    c.email = "Tatiana@gmail.com";
+    c.phone = "7985189";
+
+    helper.saveContact(c);*/
+
+
+    helper.getAllContacts().then((list) {
       setState(() {
         contacts = list;
       });
@@ -26,24 +37,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contatos",style: TextStyle(color: Colors.black),),
+        title: Text(
+          "Contatos",
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.red,
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: Icon(Icons.add,color: Colors.black,),
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
         backgroundColor: Colors.red,
       ),
       body: ListView.builder(
           padding: EdgeInsets.all(10.0),
           itemCount: contacts.length,
-          itemBuilder: _contactCard),
+          itemBuilder: (context,index){
+            return _contactCard(context,index);
+          }),
     );
   }
 
-  Widget _contactCard(BuildContext context , int index){
+  Widget _contactCard(BuildContext context, int index) {
     return GestureDetector(
       child: Card(
         child: Padding(
@@ -51,11 +70,34 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: <Widget>[
               Container(
-                width: 80.0,
-                height:80.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(image: )
+                  width: 80.0,
+                  height: 80.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: contacts[index].img != null
+                            ? FileImage(File(contacts[index].img))
+                            : AssetImage("images/person.png")),
+                  )),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      contacts[index].name ?? "",
+                      style: TextStyle(
+                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      contacts[index].email ?? "",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    Text(
+                      contacts[index].phone ?? "",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ],
                 ),
               )
             ],
