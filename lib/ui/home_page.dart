@@ -1,7 +1,7 @@
+import 'package:agendacontatos/ui/contact_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agendacontatos/helpers/contact_helper.dart';
 import 'dart:io';
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,9 +11,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ContactHelper helper = ContactHelper();
   List<Contact> contacts = List();
-
-
-
 
   @override
   void initState() {
@@ -30,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
     helper.saveContact(c);
     helper.saveContact(d);
-
 
     helper.getAllContacts().then((list) {
       setState(() {
@@ -52,7 +48,9 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          _showContactPage();
+        },
         child: Icon(
           Icons.add,
           color: Colors.black,
@@ -62,8 +60,8 @@ class _HomePageState extends State<HomePage> {
       body: ListView.builder(
           padding: EdgeInsets.all(10.0),
           itemCount: contacts.length,
-          itemBuilder: (context,index){
-            return _contactCard(context,index);
+          itemBuilder: (context, index) {
+            return _contactCard(context, index);
           }),
     );
   }
@@ -110,6 +108,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      onTap: (){
+        _showContactPage(contact: contacts[index]);
+      },
     );
+  }
+
+  void _showContactPage({Contact contact}) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ContactPage(contact: contact)));
   }
 }
