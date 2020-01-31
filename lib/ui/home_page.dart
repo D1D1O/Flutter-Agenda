@@ -18,12 +18,17 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    /*Contact c = Contact();
-    c.name = "Tatiana";
-    c.email = "Tatiana@gmail.com";
+    Contact d = Contact();
+    d.name = "Giovanny";
+    d.email = "Giovanny@gmail.com";
+    d.phone = "7985189";
+    Contact c = Contact();
+    c.name = "Didio";
+    c.email = "Didio@gmail.com";
     c.phone = "7985189";
 
-    helper.saveContact(c);*/
+    helper.saveContact(c);
+    helper.saveContact(d);
 
 
     helper.getAllContacts().then((list) {
@@ -87,15 +92,15 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       contacts[index].name ?? "",
                       style: TextStyle(
-                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                          fontSize: 15.0, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       contacts[index].email ?? "",
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 15.0),
                     ),
                     Text(
                       contacts[index].phone ?? "",
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 15.0),
                     ),
                   ],
                 ),
